@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bipartite Graph Drawer</title>
+  <style>
+    canvas {
+      border: 1px solid black;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Bipartite Graph Drawer</h2>
+  <canvas id="graphCanvas" width="800" height="600"></canvas>
+
+  <script>
+    const canvas = document.getElementById('graphCanvas');
+    const ctx = canvas.getContext('2d');
+
+    // Define two partitions of nodes
+    const partitionA = [{ x: 200, y: 100, label: '1', subLabel: '{1}' }, 
+                        { x: 200, y: 250, label: '2', subLabel: '{2}' }, 
+                        { x: 200, y: 400, label: '3', subLabel: '{3}' }];
+    const partitionB = [{ x: 600, y: 100, label: '4', subLabel: '{1,2}' }, 
+                        { x: 600, y: 250, label: '5', subLabel: '{1,3}' }, 
+                        { x: 600, y: 400, label: '6', subLabel: '{2,3}' }];
+
+    const nodes = [...partitionA, ...partitionB];
+    const nodeRadius = 40;
+    let selectedNode = null;
+    let edges = []; // List to store edges as pairs of nodes
+
+    // Draw nodes for the graph with labels and sub-labels
+    function drawNodes() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);  // Clear the canvas before redrawing
+
+      nodes.forEach((node, index) => {
+        // Draw the node circle
+        ctx.beginPath();
+        ctx.arc(node.x, node.y, nodeRadius, 0, 2 * Math.PI);
+        ctx.fillStyle = (index < partitionA.length) ? "lightblue" : "lightgreen";  // Lightblue for partition A, Lightgreen for partition B
+        ctx.fill();
+        ctx.stroke();
+        ctx.closePath();
+
+        // Draw node index label
+        ctx.fillStyle = "black";
+        ctx.font = "16px Arial";
+        ctx.fillText(node.label, node.x - 5, node.y - 5);  // Adjust text position for centering
+
+        // Draw node sub-label below the index
+        ctx.font = "12px Arial";
+        ctx.fillText(node.subLabel, node.x - 10, node.y + 15);  // Adjust text position for centering the sub-label
+      });
+
+      // Draw edges
+      edges.forEach(edge => {
+        drawEdge(edge[0], edge[1], false); // Don't check for removal while redrawing
+      });
+    }
+
+    // Check if a point is inside a node
+    function isInsideNode(node, x, y) {
+      return Math.sqrt((x - node.x) ** 2 + (y - node.y) ** 2) < nodeRadius;
+    }
+
+    // Add event listener for clicking on the canvas
+    canvas.addEventListener('click', (event) => {
+      const rect = canvas.getBoundingClientRect();
+      const mouseX = event.clientX - rect.left;
+      const mouseY = event.clientY - rect.top;
+
+      // Check if clicked on an edge to remove it
+      for (let i = 0; i < edges.length; i++) {
+        if (isOnEdge(edges[i][0], edges[i][1], mouseX, mouseY)) {
+          edges.splice(i, 1);  // Remove the edge
+          drawNodes();  // Redraw the graph
+          return;
+        }
+      }
+
+      // Otherwise, check if clicked on a node to select or draw an edge
+      for (const node of nodes) {
+        if (isInsideNode(node, mouseX, mouseY)) {
+          if (selectedNode) {
+            if (selectedNode !== node) {
+              edges.push([selectedNode, node]);  // Add new edge
+              drawNodes();
+            }
+            selectedNode = null;  // Reset after drawing the edge
+          } else {
+            selectedNode = node;  // Set the selected node
+          }
+          return;
+        }
+      }
+    });
+
+    // Draw an edge between two nodes
+    function drawEdge(node1, node2, checkForRemoval = true) {
+      ctx.beginPath();
+      ctx.moveTo(node1.x, node1.y);
+      ctx.lineTo(node2.x, node2.y);
+      ctx.strokeStyle = 'black';
+      ctx.lineWidth = 2;
+      ctx.stroke();
+      ctx.closePath();
+    }
+
+    // Check if the click is on an edge
+    function isOnEdge(node1, node2, x, y) {
+      const distToSegment = pointToSegmentDistance(x, y, node1.x, node1.y, node2.x, node2.y);
+      return distToSegment < 5;  // Consider it a hit if distance is less than 5 pixels
+    }
+
+    // Calculate the distance from a point to a line segment (used for detecting edge clicks)
+    function pointToSegmentDistance(px, py, x1, y1, x2, y2) {
+      const A = px - x1;
+      const B = py - y1;
+      const C = x2 - x1;
+      const D = y2 - y1;
+
+      const dot = A * C + B * D;
+      const len_sq = C * C + D * D;
+      let param = -1;
+      if (len_sq !== 0) param = dot / len_sq;
+
+      let xx, yy;
+
+      if (param < 0) {
+        xx = x1;
+        yy = y1;
+      } else if (param > 1) {
+        xx = x2;
+        yy = y2;
+      } else {
+        xx = x1 + param * C;
+        yy = y1 + param * D;
+      }
+
+      const dx = px - xx;
+      const dy = py - yy;
+      return Math.sqrt(dx * dx + dy * dy);
+    }
+
+    // Initial draw
+    drawNodes();  // Make sure to draw the nodes initially on the canvas
+
+  </script>
+
+</body>
+</html>
