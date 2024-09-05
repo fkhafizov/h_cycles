@@ -1,0 +1,45 @@
+You are a python and graph theory expert. You will be helping me to 
+write python code implementing algorithms on graphs.
+Please do not guess answers. Write algorithms that work. 
+Explain each step along the way.
+Let 
+nds = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19]
+edgs = [(0, 10), (0, 11), (0, 12), (10, 1), (10, 4), (11, 2), (11, 5), (12, 3), (12, 6), (1, 13), (1, 14), (13, 2), (13, 7), (14, 3), (14, 8), (2, 15), (15, 3), (15, 9), (4, 16), (4, 17), (16, 5), (16, 7), (17, 6), (17, 8), (5, 18), (18, 6), (18, 9), (7, 19), (19, 8), (19, 9)]
+D is graphs with D.nodes = nds and D.edges=edgs.
+
+Each node has a string label. Node labels are stored in the dictionary
+node_labels = {0: '{1, 2}',
+ 1: '{1, 3}',
+ 2: '{1, 4}',
+ 3: '{1, 5}',
+ 4: '{2, 3}',
+ 5: '{2, 4}',
+ 6: '{2, 5}',
+ 7: '{3, 4}',
+ 8: '{3, 5}',
+ 9: '{4, 5}',
+ 10: '{1, 2, 3}',
+ 11: '{1, 2, 4}',
+ 12: '{1, 2, 5}',
+ 13: '{1, 3, 4}',
+ 14: '{1, 3, 5}',
+ 15: '{1, 4, 5}',
+ 16: '{2, 3, 4}',
+ 17: '{2, 3, 5}',
+ 18: '{2, 4, 5}',
+ 19: '{3, 4, 5}'}
+
+Write python codes that finds all Hamiltonian paths in D.
+Write your answer and explations in markup format.
+
+
+Here is an example of a Hamiltonian path that you will compute.
+P = [0, 10, 1, 13, 2, 11, 5, 18, 6, 12, 3, 14, 8, 17, 4, 16, 7, 19, 9, 15]
+Write python code that plots the following graph.
+On the left hand side  plot circles for nodes from 0 to 9 with corresponding labels.
+    Show node number labels in each circle.
+    
+On the right hand side  plot circles for nodes from 10 to 19 with corresponding labels.
+     Show node number labels in each circle.
+Then connect circles according to the Hamiltonian path P.
+
