@@ -2,6 +2,11 @@
 
 2024.09.05
 
+
+* [COLAB: h_graph_master_v2.ipynb](https://colab.research.google.com/drive/1WiRS5vEqdOLMbq_R7dYeKf-28fJSzsin?usp=sharing)
+* [G-SHEETS: H_graph](https://docs.google.com/spreadsheets/d/1IZ1tI5acuB7Cpla31DKSHJqDdLMkAuhZyKlztbT0vPY/edit?gid=0#gid=0) [for all](https://docs.google.com/spreadsheets/d/1IZ1tI5acuB7Cpla31DKSHJqDdLMkAuhZyKlztbT0vPY/edit?usp=sharing)
+* [G-SLIDES: h_graph](https://docs.google.com/presentation/d/1uo-4FM9PmssMOKztGigcKGCwonDHqCk-w6lyK8QRPw0/edit#slide=id.g2fafb3f5ba4_0_18) [for all](https://docs.google.com/presentation/d/1uo-4FM9PmssMOKztGigcKGCwonDHqCk-w6lyK8QRPw0/edit?usp=sharing)
+* 
 ---------
 
           or create a new repository on the command line
