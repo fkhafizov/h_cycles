@@ -1,0 +1,9 @@
+write javascript code that draws bi-partite graph and connects edges by mouth click
+
+
+
+I saved this code in text.html file. When I open the file I see only white canvas and title "Bipartite Graph Drawer" I do not see nodes. Do you know why? Can you fix the problem?
+
+
+
+This looks better. Let's add option to remove an edge by clicking on it. Also we need to show each nodes index value and label. Assume indices for blue nodes are 1,2,3 and for green 4,5,6.  
